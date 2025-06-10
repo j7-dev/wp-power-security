@@ -21,15 +21,22 @@ final class Bootstrap {
 		\add_action(
 			'init',
 			function () {
-				$this->run_command();
+				// ?run=init
+				if (isset($_GET['run']) ) {
+					$this->run_command($_GET['run']);
+				}
 			}
 			);
 		// TEST ---------- END ---------- //
 	}
 
-	/** Run command */
-	public function run_command(): void {
-		$filename = 'test.sh';
+	/**
+	 * Run command
+	 *
+	 * @param string $filename Filename
+	 */
+	public function run_command( string $filename ): void {
+		$filename = "{$filename}.sh";
 		// 執行 /shell 目錄裡面的 test.sh
 		$shell_path = "{$this->shell_dir}/{$filename}";
 		try {
