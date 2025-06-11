@@ -1,8 +1,10 @@
 ### 安裝 php composer
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-php composer-setup.php --install-dir=/home --filename=composer && \
+mkdir -p /var/www/composer && \
+php composer-setup.php --install-dir=/var/www/composer --filename=composer && \
 php -r "unlink('composer-setup.php');" && \
-echo 'export PATH="/home:$PATH"' >> ~/.bashrc && \
+chmod +x /var/www/composer/composer && \
+echo 'export PATH="/var/www/composer:$PATH"' >> ~/.bashrc && \
 source ~/.bashrc && \
 composer --version
 
