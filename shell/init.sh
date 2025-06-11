@@ -2,7 +2,7 @@
 # echo "$(groups):$(whoami)" && \
 SHELL_DIR=$(pwd)
 PLUGIN_DIR=${SHELL_DIR}/../..
-SITE_DIR=${SHELL_DIR}/../../..
+SITE_DIR=${PLUGIN_DIR}/../../..
 
 echo "🚧 開始安裝 composer SHELL_DIR: ${SHELL_DIR} SITE_DIR: ${SITE_DIR}"
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
