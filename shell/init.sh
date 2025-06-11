@@ -1,5 +1,6 @@
 ### 安裝 php composer
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+echo "$(groups):$(whoami)" && \
 mkdir -p /var/www/composer && \
 php composer-setup.php --install-dir=/var/www/composer --filename=composer && \
 php -r "unlink('composer-setup.php');" && \
