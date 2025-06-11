@@ -23,10 +23,20 @@ INSTALL_SUCCESS=true
 # 遍歷並安裝每個插件
 for plugin in "${PLUGINS[@]}"; do
     echo "📦 正在安裝插件: $plugin"
+
+    # 先搜尋套件是否存在
+    SEARCH_RESULT=$(${SHELL_DIR}/composer search --only-name wpackagist-plugin/$plugin)
+
     if ! ${SHELL_DIR}/composer require wpackagist-plugin/$plugin; then
-        echo "❌ 安裝插件 $plugin 失敗"
-        INSTALL_SUCCESS=false
-        break
+        # 如果安裝失敗，檢查是否是因為套件不存在
+        if [ -z "$SEARCH_RESULT" ]; then
+            echo "⚠️ 插件 $plugin 在 wpackagist 中不存在，跳過安裝"
+            continue
+        else
+            echo "❌ 安裝插件 $plugin 失敗"
+            INSTALL_SUCCESS=false
+            break
+        fi
     fi
 done
 
