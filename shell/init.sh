@@ -15,9 +15,7 @@ echo "✅ Composer 安裝完成"
 ### 初始化 composer(設定composer.json) => 注意 在ubuntu 需要使用apt安裝jq，以下指定在非ubuntu系統可能會無法執行
 echo "🚧 開始設定 composer.json"
 ${SHELL_DIR}/composer init --no-interaction --name="$(basename $(dirname "$PWD"))/power-updater" && \
-apt update && \
-apt install -y jq && \
-jq '.extra."installer-paths" = {"src/plugins/current/{$name}/": ["type:wordpress-plugin"]}' composer.json > tmp.json && mv tmp.json composer.json
+php ${SHELL_DIR}/Setup.php
 echo "✅ 設定 composer.json 完成"
 
 ### 安裝 wpackagist

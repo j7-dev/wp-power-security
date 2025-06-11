@@ -6,14 +6,14 @@ SITE_DIR=${PLUGIN_DIR}/../..
 echo "🚧 開始重新創建composer.json SITE_DIR: ${SITE_DIR}"
 rm -rf composer.json composer.lock && \
 ${SHELL_DIR}/composer init --no-interaction --name="$(basename $(dirname "$PWD"))/power-updater" && \
-jq '.extra."installer-paths" = {"src/plugins/current/{$name}/": ["type:wordpress-plugin"]}' composer.json > tmp.json && mv tmp.json composer.json && \
+php ${SHELL_DIR}/Setup.php
 echo "✅ 重新創建 composer.json 完成"
 
 ### 安裝 wpackagist
 echo "🚧 開始安裝 wpackagist"
 ${SHELL_DIR}/composer self-update && \
 ${SHELL_DIR}/composer config repositories.wpackagist ${SHELL_DIR}/composer https://wpackagist.org && \
-${SHELL_DIR}/composer config --no-plugins allow-plugins.composer/installers true && \
+${SHELL_DIR}/composer config --no-plugins allow-plugins.composer/installers true
 echo "✅ 安裝 wpackagist 完成"
 
 # 創建臨時目錄
