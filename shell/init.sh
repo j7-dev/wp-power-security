@@ -1,7 +1,9 @@
 ### 安裝 php composer
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
+php composer-setup.php --install-dir=/home --filename=composer && \
 php -r "unlink('composer-setup.php');" && \
+echo 'export PATH="/home:$PATH"' >> ~/.bashrc && \
+source ~/.bashrc && \
 composer --version
 
 ### 初始化 composer(設定composer.json) => 注意 在ubuntu 需要使用apt安裝jq，以下指定在非ubuntu系統可能會無法執行
