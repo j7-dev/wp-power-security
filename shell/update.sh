@@ -1,7 +1,7 @@
 ### 重新創建composer.json(因為用戶可能把 wordpress plugin 新增或是刪除，所以重新創建composer.json是最能匹配當前wordpress plugins list的)
 SHELL_DIR=$(pwd)
 PLUGIN_DIR=${SHELL_DIR}/../..
-SITE_DIR=${SHELL_DIR}/../../..
+SITE_DIR=${PLUGIN_DIR}/../..
 
 echo "🚧 開始重新創建composer.json SITE_DIR: ${SITE_DIR}"
 rm -rf composer.json composer.lock && \
@@ -21,6 +21,13 @@ mkdir -p ./src/plugins/current
 
 # 獲取所有插件名稱並存儲在數組中
 PLUGINS=($(basename -a ${SITE_DIR}/wp-content/plugins/*/))
+
+# 檢查是否找到任何插件
+if [ ${#PLUGINS[@]} -eq 0 ]; then
+    echo "❌ 錯誤：在 ${SITE_DIR}/wp-content/plugins 中沒有找到任何插件"
+    exit 1
+fi
+
 INSTALL_SUCCESS=true
 
 # 遍歷並安裝每個插件

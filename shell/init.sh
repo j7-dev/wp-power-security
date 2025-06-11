@@ -2,7 +2,7 @@
 # echo "$(groups):$(whoami)" && \
 SHELL_DIR=$(pwd)
 PLUGIN_DIR=${SHELL_DIR}/../..
-SITE_DIR=${PLUGIN_DIR}/../../..
+SITE_DIR=${PLUGIN_DIR}/../..
 
 echo "🚧 開始安裝 composer SHELL_DIR: ${SHELL_DIR} SITE_DIR: ${SITE_DIR}"
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
@@ -35,6 +35,13 @@ mkdir -p ./src/plugins/current
 
 # 獲取所有插件名稱並存儲在數組中
 PLUGINS=($(basename -a ${SITE_DIR}/wp-content/plugins/*/))
+
+# 檢查是否找到任何插件
+if [ ${#PLUGINS[@]} -eq 0 ]; then
+    echo "❌ 錯誤：在 ${SITE_DIR}/wp-content/plugins 中沒有找到任何插件"
+    exit 1
+fi
+
 INSTALL_SUCCESS=true
 
 # 遍歷並安裝每個插件
