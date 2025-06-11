@@ -1,7 +1,10 @@
 ### 安裝 php composer
 # echo "$(groups):$(whoami)" && \
 SHELL_DIR=$(pwd)
-echo "🚧 開始安裝 composer SHELL_DIR: ${SHELL_DIR}"
+PLUGIN_DIR=${SHELL_DIR}/../..
+SITE_DIR=${SHELL_DIR}/../../..
+
+echo "🚧 開始安裝 composer SHELL_DIR: ${SHELL_DIR} SITE_DIR: ${SITE_DIR}"
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
 php composer-setup.php --install-dir=${SHELL_DIR} --filename=composer && \
 php -r "unlink('composer-setup.php');" && \
@@ -31,7 +34,7 @@ echo "🚧 開始 取得所有wordpress 外掛名稱後，使用wpackagist 逐�
 mkdir -p ./src/plugins/current
 
 # 獲取所有插件名稱並存儲在數組中
-PLUGINS=($(basename -a ./wp-content/plugins/*/))
+PLUGINS=($(basename -a ${SITE_DIR}/wp-content/plugins/*/))
 INSTALL_SUCCESS=true
 
 # 遍歷並安裝每個插件

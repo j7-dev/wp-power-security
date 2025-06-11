@@ -1,6 +1,9 @@
 ### 重新創建composer.json(因為用戶可能把 wordpress plugin 新增或是刪除，所以重新創建composer.json是最能匹配當前wordpress plugins list的)
 SHELL_DIR=$(pwd)
-echo "🚧 開始重新創建composer.json"
+PLUGIN_DIR=${SHELL_DIR}/../..
+SITE_DIR=${SHELL_DIR}/../../..
+
+echo "🚧 開始重新創建composer.json SITE_DIR: ${SITE_DIR}"
 rm -rf composer.json composer.lock && \
 ${SHELL_DIR}/composer init --no-interaction --name="$(basename $(dirname "$PWD"))/power-updater" && \
 jq '.extra."installer-paths" = {"src/plugins/current/{$name}/": ["type:wordpress-plugin"]}' composer.json > tmp.json && mv tmp.json composer.json && \
@@ -17,7 +20,7 @@ echo "✅ 安裝 wpackagist 完成"
 mkdir -p ./src/plugins/current
 
 # 獲取所有插件名稱並存儲在數組中
-PLUGINS=($(basename -a ./wp-content/plugins/*/))
+PLUGINS=($(basename -a ${SITE_DIR}/wp-content/plugins/*/))
 INSTALL_SUCCESS=true
 
 # 遍歷並安裝每個插件
