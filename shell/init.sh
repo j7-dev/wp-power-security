@@ -21,7 +21,7 @@ echo "✅ 設定 composer.json 完成"
 ### 安裝 wpackagist
 echo "🚧 開始安裝 wpackagist"
 ${SHELL_DIR}/composer self-update && \
-${SHELL_DIR}/composer config repositories.wpackagist ${SHELL_DIR}/composer https://wpackagist.org && \
+${SHELL_DIR}/composer config repositories.wpackagist composer https://wpackagist.org && \
 ${SHELL_DIR}/composer config --no-plugins allow-plugins.composer/installers true
 echo "✅ 安裝 wpackagist 完成"
 

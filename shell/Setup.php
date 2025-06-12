@@ -43,6 +43,7 @@ class Setup {
 		$composer_data['extra']['installer-paths'] = [
 			'src/plugins/current/{$name}/' => [ 'type:wordpress-plugin' ],
 		];
+		$composer_data['require']                  = (object) [];
 
 		// 將修改後的內容寫入臨時檔案
 		$tmp_file = __DIR__ . '/composer.json.tmp';
@@ -64,3 +65,5 @@ class Setup {
 		return true;
 	}
 }
+
+new Setup();
