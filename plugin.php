@@ -3,7 +3,7 @@
  * Plugin Name:       Power Security | 用更安全、智慧的方式更新外掛
  * Plugin URI:        https://github.com/j7-dev/wp-power-security
  * Description:       用更安全、智慧的方式更新外掛
- * Version:           0.0.2
+ * Version:           0.0.3
  * Requires at least: 5.7
  * Requires PHP:      8.0
  * Author:            J7

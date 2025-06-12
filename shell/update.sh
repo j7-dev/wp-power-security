@@ -1,19 +1,19 @@
 ### 重新創建composer.json(因為用戶可能把 wordpress plugin 新增或是刪除，所以重新創建composer.json是最能匹配當前wordpress plugins list的)
-SHELL_DIR=$(pwd)
-PLUGIN_DIR=${SHELL_DIR}/../..
-SITE_DIR=${PLUGIN_DIR}/../..
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PLUGIN_DIR="$(dirname $(dirname "$SCRIPT_DIR"))"
+SITE_DIR="$(dirname $(dirname "$PLUGIN_DIR"))"
 
 echo "🚧 開始重新創建composer.json SITE_DIR: ${SITE_DIR}"
 rm -rf composer.json composer.lock && \
-${SHELL_DIR}/composer init --no-interaction --name="$(basename $(dirname "$PWD"))/power-updater" && \
-php ${SHELL_DIR}/Setup.php
+${SCRIPT_DIR}/composer init --no-interaction --name="$(basename $(dirname "$PWD"))/power-updater" && \
+php ${SCRIPT_DIR}/Setup.php
 echo "✅ 重新創建 composer.json 完成"
 
 ### 安裝 wpackagist
 echo "🚧 開始安裝 wpackagist"
-${SHELL_DIR}/composer self-update && \
-${SHELL_DIR}/composer config repositories.wpackagist ${SHELL_DIR}/composer https://wpackagist.org && \
-${SHELL_DIR}/composer config --no-plugins allow-plugins.composer/installers true
+${SCRIPT_DIR}/composer self-update && \
+${SCRIPT_DIR}/composer config repositories.wpackagist ${SCRIPT_DIR}/composer https://wpackagist.org && \
+${SCRIPT_DIR}/composer config --no-plugins allow-plugins.composer/installers true
 echo "✅ 安裝 wpackagist 完成"
 
 # 創建臨時目錄
@@ -35,9 +35,9 @@ for plugin in "${PLUGINS[@]}"; do
     echo "📦 正在安裝插件: $plugin"
 
     # 先搜尋套件是否存在
-    SEARCH_RESULT=$(${SHELL_DIR}/composer search --only-name wpackagist-plugin/$plugin)
+    SEARCH_RESULT=$(${SCRIPT_DIR}/composer search --only-name wpackagist-plugin/$plugin)
 
-    if ! ${SHELL_DIR}/composer require wpackagist-plugin/$plugin; then
+    if ! ${SCRIPT_DIR}/composer require wpackagist-plugin/$plugin; then
         # 如果安裝失敗，檢查是否是因為套件不存在
         if [ -z "$SEARCH_RESULT" ]; then
             echo "⚠️ 插件 $plugin 在 wpackagist 中不存在，跳過安裝"
