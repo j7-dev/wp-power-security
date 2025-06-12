@@ -44,6 +44,7 @@ class Setup {
 			'src/plugins/current/{$name}/' => [ 'type:wordpress-plugin' ],
 		];
 		$composer_data['require']                  = (object) [];
+		$composer_data['version']                  = '1.0.0';
 
 		// 將修改後的內容寫入臨時檔案
 		$tmp_file = __DIR__ . '/composer.json.tmp';
