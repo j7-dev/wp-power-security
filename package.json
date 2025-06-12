@@ -1,6 +1,6 @@
 {
 	"name": "create-wp-vite-plugin",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"type": "module",
 	"scripts": {
 		"bootstrap": "npm install && composer install --no-interaction",
